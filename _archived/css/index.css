@@ -1,0 +1,52 @@
+html,
+body {
+    background: #DBDEE0;
+    height: 400px;
+    overflow: hidden;
+    width: 400px;
+    -webkit-user-select: none;
+}
+
+#main {
+    background: #DBDEE0;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    height: 400px;
+}
+
+.serial-button {
+    background-color: #E5E5E5;
+    border-radius: 6%;
+    border-color: #000000;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    cursor: pointer;
+    display: inline-block;
+    height: 38px;
+    margin-top: 200px;
+    position: relative;
+    width: 92px;
+    box-shadow: 0 2px 0 #999999;
+}
+
+.serial-button:hover {
+    box-shadow: 0 1px 0 #999999;
+    top: 1px;
+}
+
+.serial-button:hover > span {
+    top: -42px;
+}
+
+.serial-button:active {
+    box-shadow: 0 0 0 #999999;
+    top: 3px;
+}
+
+.serial-button:active > span {
+    top: -45px;
+}
