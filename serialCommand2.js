@@ -2,24 +2,19 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-// Open a serial port 
 var serialPort = require('serialport')
 var port = new serialPort('/dev/ttyUSB0', {
   baudRate: 9600,
-  parser: serialPort.parsers.byteDelimiter(3)
+  parser: serialPort.parsers.byteDelimiter([10,13])
 });
 
-
-// Port open event with callback function.
-// Port open event will always be emitted. 
 port.on('open', function() {
   console.log('Serial port open');
-  var writeData = [2,72,3];
-  port.write(writeData, function(err) {
+  port.write([77,78,77,10,13], function(err) {
     if (err) {
       return console.log('Error on write: ', err.message);
     }
-    console.log('Message written to serial port: ' + writeData);
+    console.log('Message written to serial port');
   });
 });
 
