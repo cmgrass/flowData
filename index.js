@@ -2,30 +2,30 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-// Define external object
-var exports = module.exports = {};
-  
 // Open a serial port 
-exports.serialPort = require('serialport')
-exports.myPort = new exports.serialPort('/dev/ttyUSB0', {
+var serialPort = require('serialport');
+var myPort = new serialPort('/dev/ttyUSB0', {
   baudRate: 9600,
-  parser: exports.serialPort.parsers.byteDelimiter(3)
+  parser: serialPort.parsers.byteDelimiter(3)
 });
 
 // Port open event with callback function.
 // Port open event will always be emitted. 
-exports.myPort.on('open', function() {
+myPort.on('open', function() {
   console.log('Serial port open');
 });
 
-// Create Main Page Buttons.
-// Require command scripts
-var serialCommand = require('./serialCommand.js');
+// Require serial modules
+const aliveCommand = require('./aliveCommand.js');
 
+// Create Main Page Buttons.
 // Create button to send alive command.
 var aliveButton = document.createElement('button')
 aliveButton.textContent = 'Send Alive Command'
-aliveButton.addEventListener('click', serialCommand.sendAlive())
+aliveButton.addEventListener('click', function() {
+  aliveCommand.send(myPort);
+  console.log('Button clicked');
+})
 document.body.appendChild(aliveButton)
 
 // Create button to send data request command.
@@ -33,10 +33,12 @@ document.body.appendChild(aliveButton)
 //getDataButton.textContent = 'Get Data'
 //document.body.appendChild(getDataButton)
 
-exports.myPort.on('error', function(err) {
+myPort.on('error', function(err) {
   console.log('Error: ', err.message);
 });
 
-exports.myPort.on('data', function(data) {
+myPort.on('data', function(data) {
   console.log('Data Received on serial port: ' + data);
+  myPort.close();
+  console.log('Port closed');
 });
