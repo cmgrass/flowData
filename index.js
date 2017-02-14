@@ -13,8 +13,6 @@ var myPort = new serialPort('/dev/ttyUSB0', {
 // Port open event will always be emitted. 
 myPort.on('open', function() {
   console.log('Serial port open');
-//  myPort.write([1,2,3]);
-//  console.log('1,2,3');
 });
 
 // Require serial modules
