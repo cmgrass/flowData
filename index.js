@@ -16,16 +16,15 @@ myPort.on('open', function() {
 });
 
 // Require serial modules
-const aliveCommand = require('./aliveCommand.js');
-const dataCommand = require('./dataCommand.js');
+const serialCommand = require('./serialCommand.js');
 
 // Create Main Page Buttons.
 // Create button to send alive command.
 var aliveButton = document.createElement('button')
 aliveButton.textContent = 'Send Alive Command'
 aliveButton.addEventListener('click', function() {
-  aliveCommand.send(myPort);
-  console.log('Heartbeat Sent');
+  serialCommand.alive(myPort);
+  console.log('Sending heartbeat');
 })
 document.body.appendChild(aliveButton)
 
@@ -33,17 +32,36 @@ document.body.appendChild(aliveButton)
 var getDataButton = document.createElement('button')
 getDataButton.textContent = 'Get Data'
 getDataButton.addEventListener('click', function() {
-  dataCommand.send(myPort);
-  console.log('Data frame requested');
+  serialCommand.getFrame(myPort);
+  console.log('Requesting data frame');
 })
 document.body.appendChild(getDataButton)
+
+// Create button to send motor start command
+var startMotorButton = document.createElement('button')
+startMotorButton.textContent = 'Start Motor'
+startMotorButton.addEventListener('click', function() {
+  serialCommand.startMotor(myPort);
+  console.log('Starting motor');
+})
+document.body.appendChild(startMotorButton)
+
+// Create button to send motor stop command
+var stopMotorButton = document.createElement('button')
+stopMotorButton.textContent = 'Stop Motor'
+stopMotorButton.addEventListener('click', function() {
+  serialCommand.stopMotor(myPort);
+  console.log('Stopping motor');
+})
+document.body.appendChild(stopMotorButton)
 
 myPort.on('error', function(err) {
   console.log('Error: ', err.message);
 });
 
 myPort.on('data', function(data) {
-  console.log('Data Received on serial port: ' + data);
+  console.log('Data Received on serial port:');
+  console.log(data);
   myPort.close();
   console.log('Port closed');
 });
