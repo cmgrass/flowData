@@ -1,3 +1,13 @@
+// Open Serial Port
+exports.open = function() {
+  var serialPort = require('serialport');
+  var myPort = new serialPort('/dev/ttyUSB0', {
+    baudRate: 9600,
+    parser: serialPort.parsers.byteDelimiter(3)
+  });
+  return myPort;
+}
+
 // Send `Alive` Command
 exports.alive = function(port) {
   const aliveCommand = [2, 72, 3];

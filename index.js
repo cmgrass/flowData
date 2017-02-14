@@ -2,6 +2,11 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
+// -----Require Modules-----
+// Serial module
+const serialCommand = require('./serialCommand.js');
+
+//-----Serial Port Management-----
 // Open a serial port 
 var serialPort = require('serialport');
 var myPort = new serialPort('/dev/ttyUSB0', {
@@ -15,10 +20,18 @@ myPort.on('open', function() {
   console.log('Serial port open');
 });
 
-// Require serial modules
-const serialCommand = require('./serialCommand.js');
+myPort.on('error', function(err) {
+  console.log('Error: ', err.message);
+});
 
-// Create Main Page Buttons.
+myPort.on('data', function(data) {
+  console.log('Data Received on serial port:');
+  console.log(data);
+//  myPort.close();
+//  console.log('Port closed');
+});
+
+// -----Create Main Page Buttons-----.
 // Create button to send alive command.
 var aliveButton = document.createElement('button')
 aliveButton.textContent = 'Send Alive Command'
@@ -55,13 +68,4 @@ stopMotorButton.addEventListener('click', function() {
 })
 document.body.appendChild(stopMotorButton)
 
-myPort.on('error', function(err) {
-  console.log('Error: ', err.message);
-});
 
-myPort.on('data', function(data) {
-  console.log('Data Received on serial port:');
-  console.log(data);
-  myPort.close();
-  console.log('Port closed');
-});
