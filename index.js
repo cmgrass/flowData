@@ -17,6 +17,7 @@ myPort.on('open', function() {
 
 // Require serial modules
 const aliveCommand = require('./aliveCommand.js');
+const dataCommand = require('./dataCommand.js');
 
 // Create Main Page Buttons.
 // Create button to send alive command.
@@ -24,14 +25,18 @@ var aliveButton = document.createElement('button')
 aliveButton.textContent = 'Send Alive Command'
 aliveButton.addEventListener('click', function() {
   aliveCommand.send(myPort);
-  console.log('Button clicked');
+  console.log('Heartbeat Sent');
 })
 document.body.appendChild(aliveButton)
 
 // Create button to send data request command.
-//var getDataButton = document.createElement('button')
-//getDataButton.textContent = 'Get Data'
-//document.body.appendChild(getDataButton)
+var getDataButton = document.createElement('button')
+getDataButton.textContent = 'Get Data'
+getDataButton.addEventListener('click', function() {
+  dataCommand.send(myPort);
+  console.log('Data frame requested');
+})
+document.body.appendChild(getDataButton)
 
 myPort.on('error', function(err) {
   console.log('Error: ', err.message);
