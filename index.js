@@ -5,6 +5,15 @@
 // -----Require Modules-----
 // Serial module
 const serialCommand = require('./serialCommand.js');
+const fileWrite = require('./fileWrite.js');
+
+//-----File Writer Management-----
+// Create file
+var csv = require('ya-csv');
+var fs = require('fs');
+
+// Create object to write file
+var writer = csv.createCsvStreamWriter(fs.createWriteStream('loggedData.csv'));
 
 //-----Serial Port Management-----
 // Open a serial port 
@@ -27,6 +36,7 @@ myPort.on('error', function(err) {
 myPort.on('data', function(data) {
   console.log('Data Received on serial port:');
   console.log(data);
+  fileWrite.logData(csv, fs, writer, data);
 //  myPort.close();
 //  console.log('Port closed');
 });
