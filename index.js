@@ -20,6 +20,9 @@ var writer = csv.createCsvStreamWriter(fs.createWriteStream('loggedData.csv'));
 var serialPort = require('serialport');
 var myPort = new serialPort('/dev/ttyUSB0', {
   baudRate: 9600,
+  dataBits: 8,
+  stopBits: 1,
+  parity: 'none',
   parser: serialPort.parsers.byteDelimiter(3)
 });
 
