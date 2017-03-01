@@ -81,4 +81,16 @@ stopMotorButton.addEventListener('click', function() {
 })
 document.body.appendChild(stopMotorButton)
 
+// -----Create Main Page Text Input-----
+// Create input to toggle valve stem, or rotary shaft
 
+// Create input to toggle intake or exhaust measurement
+
+// Create input to capture height (or angle) setting
+var userDispBoxCaptionElement = document.createElement('CAPTION');
+var userDispBoxCaptionVal = document.createTextNode('Enter Displacement');
+userDispBoxCaptionElement.appendChild(userDispBoxCaptionVal);
+document.body.appendChild(userDispBoxCaptionElement)
+var userDisplacementBox = document.createElement('INPUT');
+userDisplacementBox.setAttribute('type', 'numeric');
+document.body.appendChild(userDisplacementBox)
